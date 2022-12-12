@@ -79,7 +79,7 @@ namespace Abyssinia_Coffee_Inventory
             else
             {
                 Con.Open();
-                string myquery = "delete from UserTbl where Upassword= '" + PhoneTb.Text + "';";
+                string myquery = "delete from UserTbl where UPhone= '" + PhoneTb.Text + "';";
                 SqlCommand cmd = new SqlCommand(myquery, Con);
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("User successfully deleted");
@@ -96,5 +96,7 @@ namespace Abyssinia_Coffee_Inventory
             PhoneTb.Text = UserGV.SelectedRows[0].Cells[3].Value.ToString();
 
         }
+
+        
     }
 }
