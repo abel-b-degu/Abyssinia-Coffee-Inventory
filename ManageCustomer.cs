@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 
-
 namespace Abyssinia_Coffee_Inventory
 {
     public partial class ManageCustomer : Form
@@ -21,6 +20,7 @@ namespace Abyssinia_Coffee_Inventory
         }
 
         SqlConnection Con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\DSU\Documents\Inventorydb.mdf;Integrated Security=True;Connect Timeout=30");
+
         void populate()
         {
             try
@@ -45,38 +45,77 @@ namespace Abyssinia_Coffee_Inventory
             Application.Exit();
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             try
             {
                 Con.Open();
-                SqlCommand cmd = new SqlCommand("Insert into UserTbl values('" + Customerid.Text + "','" +CustomernameTb.Text + "','" + CustomerPhoneTb.Text +"')", Con);
+                MessageBox.Show("Customer Successfully Added");
+                SqlCommand cmd = new SqlCommand("insert into CustomerTbl values('" + Customerid.Text + "','" + CustomernameTb.Text + "','" + CustomerPhoneTb.Text + "')", Con);
                 cmd.ExecuteNonQuery();
-                MessageBox.Show("User Successfully Added");
                 Con.Close();
                 populate();
             }
-            catch
+            catch(Exception Except)
             {
-
+                MessageBox.Show(Except.Message);
             }
-        }
 
-        private void CustomerGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            Customerid.Text = CustomerGV.SelectedRows[0].Cells[0].Value.ToString();
-            CustomernameTb.Text = CustomerGV.SelectedRows[0].Cells[1].Value.ToString();
-            CustomerPhoneTb.Text = CustomerGV.SelectedRows[0].Cells[2].Value.ToString();
         }
 
         private void ManageCustomer_Load(object sender, EventArgs e)
         {
             populate();
+        }
+
+        private void CustomerGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+           
+            
+                Customerid.Text = CustomerGV.SelectedRows[0].Cells[0].Value.ToString();
+                CustomernameTb.Text = CustomerGV.SelectedRows[0].Cells[1].Value.ToString();
+                CustomerPhoneTb.Text = CustomerGV.SelectedRows[0].Cells[2].Value.ToString();
+
+            
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (CustomerPhoneTb.Text == "")
+            {
+                MessageBox.Show("Enter The Customer Phone Number");
+            }
+            else
+            {
+                Con.Open();
+                MessageBox.Show("Customer successfully deleted");
+                string myquery = "delete from CustomerTbl where CustPhone= '" + CustomerPhoneTb.Text + "';";
+                SqlCommand cmd = new SqlCommand(myquery, Con);
+                cmd.ExecuteNonQuery();
+                
+                Con.Close();
+                populate();
+            }
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void CustomernameTb_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CustomerPhoneTb_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Customerid_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
