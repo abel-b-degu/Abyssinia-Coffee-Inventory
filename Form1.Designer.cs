@@ -150,6 +150,7 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
+        fuckin life;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
