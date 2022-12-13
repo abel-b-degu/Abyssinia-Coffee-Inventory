@@ -39,6 +39,29 @@ namespace Abyssinia_Coffee_Inventory
                 dt.Load(rdr);
                 CatCombo.ValueMember = "CatName";
                 CatCombo.DataSource = dt;
+                SearchCombo.ValueMember = "CatName";
+                SearchCombo.DataSource = dt;
+                Con.Close();
+            }
+            catch
+            {
+
+            }
+        }
+        void fillSearchCombo()
+        {
+            string query = "select * from CategoryTbl where CatName='"+SearchCombo.SelectedValue.ToString()+"'";
+            SqlCommand cmd = new SqlCommand(query, Con);
+            SqlDataReader rdr;
+            try
+            {
+                Con.Open();
+                DataTable dt = new DataTable();
+                dt.Columns.Add("CatName", typeof(string));
+                rdr = cmd.ExecuteReader();
+                dt.Load(rdr);
+                CatCombo.ValueMember = "CatName";
+                CatCombo.DataSource = dt;
                 Con.Close();
             }
             catch
@@ -50,6 +73,7 @@ namespace Abyssinia_Coffee_Inventory
         {
             fillcategory();
             populate();
+
         }
         void populate()
         {
@@ -57,6 +81,24 @@ namespace Abyssinia_Coffee_Inventory
             {
                 Con.Open();
                 String Myquery = "select * from ProductTbl";
+                SqlDataAdapter da = new SqlDataAdapter(Myquery, Con);
+                SqlCommandBuilder builder = new SqlCommandBuilder(da);
+                var ds = new DataSet();
+                da.Fill(ds);
+                ProductGV.DataSource = ds.Tables[0];
+                Con.Close();
+            }
+            catch
+            {
+
+            }
+        }
+        void filterbycategory()
+        {
+            try
+            {
+                Con.Open();
+                String Myquery = "select * from ProductTbl where ProdCat='"+SearchCombo.SelectedValue.ToString()+"'";
                 SqlDataAdapter da = new SqlDataAdapter(Myquery, Con);
                 SqlCommandBuilder builder = new SqlCommandBuilder(da);
                 var ds = new DataSet();
@@ -114,6 +156,21 @@ namespace Abyssinia_Coffee_Inventory
             PriceTb.Text = ProductGV.SelectedRows[0].Cells[3].Value.ToString();
             DescriptionTb.Text = ProductGV.SelectedRows[0].Cells[4].Value.ToString();
             CatCombo.SelectedValue = ProductGV.SelectedRows[0].Cells[5].Value.ToString();
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            filterbycategory();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            populate();
+        }
+
+        private void SearchCombo_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
     }
