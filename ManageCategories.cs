@@ -89,5 +89,10 @@ namespace Abyssinia_Coffee_Inventory
         {
             populate();
         }
+
+        private void CatNameTb_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

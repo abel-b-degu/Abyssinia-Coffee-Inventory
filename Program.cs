@@ -16,7 +16,7 @@ namespace Abyssinia_Coffee_Inventory
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ManageCategories());
+            Application.Run(new ManageProducts());
         }
     }
 }
