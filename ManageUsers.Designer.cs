@@ -162,6 +162,7 @@
             this.button4.TabIndex = 8;
             this.button4.Text = "Home";
             this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // UserGV
             // 
@@ -212,6 +213,7 @@
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ManageUsers";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ManageUsers";
             this.Load += new System.EventHandler(this.ManageUsers_Load);
             this.panel1.ResumeLayout(false);

@@ -117,5 +117,13 @@ namespace Abyssinia_Coffee_Inventory
         {
 
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+            Home gohome = new Home();
+            gohome.Show();
+            this.Hide();
+        }
     }
 }
