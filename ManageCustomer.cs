@@ -21,6 +21,11 @@ namespace Abyssinia_Coffee_Inventory
 
         SqlConnection Con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\DSU\Documents\Inventorydb.mdf;Integrated Security=True;Connect Timeout=30");
 
+
+        private void label2_Click_1(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
         void populate()
         {
             try
@@ -40,10 +45,6 @@ namespace Abyssinia_Coffee_Inventory
             }
         }
 
-        private void label2_Click_1(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -54,9 +55,11 @@ namespace Abyssinia_Coffee_Inventory
                 SqlCommand cmd = new SqlCommand("insert into CustomerTbl values('" + Customerid.Text + "','" + CustomernameTb.Text + "','" + CustomerPhoneTb.Text + "')", Con);
                 cmd.ExecuteNonQuery();
                 Con.Close();
-                populate();
+                Customers customer = new Customers(CustomerGV);
+                customer.populate();
+
             }
-            catch(Exception Except)
+            catch (Exception Except)
             {
                 MessageBox.Show(Except.Message);
             }
@@ -65,7 +68,9 @@ namespace Abyssinia_Coffee_Inventory
 
         private void ManageCustomer_Load(object sender, EventArgs e)
         {
-            populate();
+            Customers customer = new Customers(CustomerGV);
+            customer.populate();
+            
         }
 
         private void CustomerGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -94,7 +99,25 @@ namespace Abyssinia_Coffee_Inventory
                 cmd.ExecuteNonQuery();
                 
                 Con.Close();
-                populate();
+                Delete();
+            }
+        }
+        void Delete()
+        {
+            try
+            {
+                Con.Open();
+                String Myquery = "select * from CustomerTbl";
+                SqlDataAdapter da = new SqlDataAdapter(Myquery, Con);
+                SqlCommandBuilder builder = new SqlCommandBuilder(da);
+                var ds = new DataSet();
+                da.Fill(ds);
+                CustomerGV.DataSource = ds.Tables[0];
+                Con.Close();
+            }
+            catch
+            {
+
             }
         }
 

@@ -64,6 +64,7 @@
             this.progressbar.Name = "progressbar";
             this.progressbar.Size = new System.Drawing.Size(391, 59);
             this.progressbar.TabIndex = 4;
+            this.progressbar.Click += new System.EventHandler(this.progressbar_Click);
             // 
             // timer1
             // 

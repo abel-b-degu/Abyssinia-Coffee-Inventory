@@ -55,8 +55,8 @@ namespace Abyssinia_Coffee_Inventory
             sda.Fill(dt);
             if (dt.Rows[0][0].ToString()=="1")
             {
-                ManageCustomer cust = new ManageCustomer();
-                cust.Show();
+                Home gohome = new Home();
+                gohome.Show();
                 this.Hide();
             }
             else
@@ -64,6 +64,8 @@ namespace Abyssinia_Coffee_Inventory
                 MessageBox.Show("Wrong UserName or Password");
             }
             Con.Close();
+
+            
         }
     }
 }

@@ -76,18 +76,36 @@ namespace Abyssinia_Coffee_Inventory
             {
                 Con.Open();
                 MessageBox.Show("Category successfully deleted");
-                string myquery = "delete from CategoryTbl where CatId= '" + CatidTb.Text + "';";
+                string myquery = "delete from CategoryTbl where Catid= '" + CatidTb.Text + "';";
                 SqlCommand cmd = new SqlCommand(myquery, Con);
                 cmd.ExecuteNonQuery();
 
                 Con.Close();
-                populate();
+                Delete();
             }
         }
+        void Delete()
+        {
+            try
+            {
+                Con.Open();
+                String Myquery = "select * from CategoryTbl";
+                SqlDataAdapter da = new SqlDataAdapter(Myquery, Con);
+                SqlCommandBuilder builder = new SqlCommandBuilder(da);
+                var ds = new DataSet();
+                da.Fill(ds);
+                CategoryGV.DataSource = ds.Tables[0];
+                Con.Close();
+            }
+            catch
+            {
 
+            }
+        }
         private void ManageCategories_Load(object sender, EventArgs e)
         {
-            populate();
+            Categories category = new Categories(CategoryGV);
+            category.populate();
         }
 
         private void CatNameTb_TextChanged(object sender, EventArgs e)

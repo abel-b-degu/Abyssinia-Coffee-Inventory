@@ -24,24 +24,7 @@ namespace Abyssinia_Coffee_Inventory
         {
             Application.Exit();
         }
-        void populate()
-        {
-            try
-            {
-                Con.Open();
-                String Myquery = "select * from UserTbl";
-                SqlDataAdapter da = new SqlDataAdapter(Myquery, Con);
-                SqlCommandBuilder builder = new SqlCommandBuilder(da);
-                var ds = new DataSet();
-                da.Fill(ds);
-                UserGV.DataSource = ds.Tables[0];
-                Con.Close();
-            }
-            catch
-            {
-
-            }
-        }
+       
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -52,7 +35,9 @@ namespace Abyssinia_Coffee_Inventory
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("User Successfully Added");
                 Con.Close();
-                populate();
+                Users user = new Users(UserGV);
+                user.populate();
+
             }
             catch
             {
@@ -67,7 +52,9 @@ namespace Abyssinia_Coffee_Inventory
 
         private void ManageUsers_Load(object sender, EventArgs e)
         {
-            populate();
+            Users user = new Users(UserGV);
+            user.populate();
+            
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -84,7 +71,26 @@ namespace Abyssinia_Coffee_Inventory
                 cmd.ExecuteNonQuery();
                 MessageBox.Show("User successfully deleted");
                 Con.Close();
-                populate();
+               
+                Delete();
+            }
+        }
+         void Delete()
+        {
+            try
+            {
+                Con.Open();
+                String Myquery = "select * from UserTbl";
+                SqlDataAdapter da = new SqlDataAdapter(Myquery, Con);
+                SqlCommandBuilder builder = new SqlCommandBuilder(da);
+                var ds = new DataSet();
+                da.Fill(ds);
+                UserGV.DataSource = ds.Tables[0];
+                Con.Close();
+            }
+            catch
+            {
+
             }
         }
 

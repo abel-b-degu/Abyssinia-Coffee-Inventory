@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Categories.cs" />
+    <Compile Include="Customer.cs" />
     <Compile Include="DeleteUsrescs.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +90,7 @@
     <Compile Include="ManageUsers.Designer.cs">
       <DependentUpon>ManageUsers.cs</DependentUpon>
     </Compile>
+    <Compile Include="Products.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SplashForm.cs">
@@ -96,6 +99,7 @@
     <Compile Include="SplashForm.Designer.cs">
       <DependentUpon>SplashForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Users.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

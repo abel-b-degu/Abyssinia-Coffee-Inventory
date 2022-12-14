@@ -71,28 +71,13 @@ namespace Abyssinia_Coffee_Inventory
         }
         private void ManageProducts_Load(object sender, EventArgs e)
         {
+            Products product = new Products(ProductGV);
+            product.populate();
             fillcategory();
-            populate();
-
         }
-        void populate()
-        {
-            try
-            {
-                Con.Open();
-                String Myquery = "select * from ProductTbl";
-                SqlDataAdapter da = new SqlDataAdapter(Myquery, Con);
-                SqlCommandBuilder builder = new SqlCommandBuilder(da);
-                var ds = new DataSet();
-                da.Fill(ds);
-                ProductGV.DataSource = ds.Tables[0];
-                Con.Close();
-            }
-            catch
-            {
 
-            }
-        }
+
+        
         void filterbycategory()
         {
             try
@@ -121,7 +106,8 @@ namespace Abyssinia_Coffee_Inventory
                 SqlCommand cmd = new SqlCommand("insert into ProductTbl values('" + ProductidTb.Text + "','" + ProductNameTb.Text + "','" + QtyTb.Text + "','" + PriceTb.Text + "','" + DescriptionTb.Text + "','" + CatCombo.SelectedValue.ToString() + "')", Con);
                 cmd.ExecuteNonQuery();
                 Con.Close();
-                populate();
+                Products product = new Products(ProductGV);
+                product.populate();
             }
             catch (Exception Except)
             {
@@ -133,18 +119,37 @@ namespace Abyssinia_Coffee_Inventory
         {
             if (ProductidTb.Text == "")
             {
-                MessageBox.Show("Enter The Product Id");
+                MessageBox.Show("Enter The Product Id Number");
             }
             else
             {
-                MessageBox.Show("Product successfully Deleted");
                 Con.Open();
                 string myquery = "delete from ProductTbl where Prodid= '" + ProductidTb.Text + "';";
                 SqlCommand cmd = new SqlCommand(myquery, Con);
                 cmd.ExecuteNonQuery();
-                
+                MessageBox.Show("User successfully deleted");
                 Con.Close();
-                populate();
+                Products product = new Products(ProductGV);
+                product.populate();
+                Delete();
+            }
+        }
+        void Delete()
+        {
+            try
+            {
+                Con.Open();
+                String Myquery = "select * from ProductTbl";
+                SqlDataAdapter da = new SqlDataAdapter(Myquery, Con);
+                SqlCommandBuilder builder = new SqlCommandBuilder(da);
+                var ds = new DataSet();
+                da.Fill(ds);
+                ProductGV.DataSource = ds.Tables[0];
+                Con.Close();
+            }
+            catch
+            {
+
             }
         }
 
@@ -166,7 +171,8 @@ namespace Abyssinia_Coffee_Inventory
 
         private void button5_Click(object sender, EventArgs e)
         {
-            populate();
+            Products product = new Products(ProductGV);
+            product.populate();
         }
 
         private void SearchCombo_SelectedIndexChanged(object sender, EventArgs e)

@@ -36,5 +36,10 @@ namespace Abyssinia_Coffee_Inventory
         {
             timer1.Start();
         }
+
+        private void progressbar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
